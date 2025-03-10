@@ -25,7 +25,7 @@ public class Categoria { // Declara a classe Categoria, que representa uma categ
     private String nome; // Declara o atributo "nome" do tipo String para armazenar o nome da categoria
 
     @OneToMany(mappedBy = "categoria")
-    private Set<Jogo> Jogos = new HashSet<>();
+    private Set<Jogo> jogos = new HashSet<>();
 
     public long getID(){
         return id;

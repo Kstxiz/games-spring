@@ -2,41 +2,43 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8" />
-    <title>Novo Jogo</title>
+    <title>Jogos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container">
-        <h1>Novo Jogo</h1>
-        <form action="/jogo/insert" method="post">
-            <div class="form-group">
-                <label for="titulo">Titulo:</label>
-                <input type="text" name="titulo" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label for="categoria">Categoria:</label>
-                <select name="categoria" class="form-select">
-                    <c:forEach var="c" items="${categorias}">
-                        <option value="${c.id}">${c.nome}</option>
-                    </c:forEach>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="plataforma">Plataforma(s):</label>
-                <c:forEach var="p" items="${plataformas}">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" name="plataformas" value="${p.id}" id="${p.id}" />
-                        <label class="custom-control-label" for="${p.id}">${p.nome}</label>
-                    </div>
-                </c:forEach>
-            </div>
-            <br />
-            <a href="/jogo/list" class="btn btn-primary">Voltar</a>
-            <button type="submit" class="btn btn-success">Salvar</button>
-        </form>
+        <h1>Jogos</h1>
+        <a href="/jogo/insert" class="btn btn-primary">Novo Jogo</a>
+        <table class="table">
+            <tr>
+                <th>Id</th>
+                <th>Titulo</th>
+                <th>Categoria</th>
+                <th>Plataformas</th>
+                <th>&nbsp;</th>
+            </tr>
+            <c:forEach var="item" items="${jogos}">
+                <tr>
+                    <td>${item.id}</td>
+                    <td>${item.titulo}</td>
+                    <td>${item.categoria.nome}</td>
+                    <td>
+                        <c:forEach var="p" varstatus="s" items="${item.plataformas}">
+                            ${s.count > 1 ? ", " : ""}${p.nome}
+                        </c:forEach>
+                    </td>
+                    <td>
+                        <a href="/jogo/update?id=${item.id}" class="btn btn-warning">Editar</a>
+                        <a href="/jogo/delete?id=${item.id}" class="btn btn-danger">Excluir</a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
     </div>
 </body>
+
 </html>
- 
